@@ -1,0 +1,16 @@
+/* ════════════════════════════════════════════════
+   CLIPPING CSS
+   Estilos para el recorte dinámico de paneles
+   ════════════════════════════════════════════════ */
+
+.clipped-pane {
+  clip-path: url(#state-mask);
+  /* Soporte para navegadores basados en Webkit */
+  -webkit-clip-path: url(#state-mask);
+  pointer-events: none !important; /* Permitir interacción con capas inferiores si es necesario */
+}
+
+/* Las capas dentro del panel deben permitir eventos si son interactivas */
+.clipped-pane > * {
+  pointer-events: auto !important;
+}

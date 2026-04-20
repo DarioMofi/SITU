@@ -1,0 +1,102 @@
+/* ═══════════════════════════════════════════════════════════
+   GEOINTELIGENCIA · EQUIDAD TERRITORIAL
+   Base.css - Variables, Fuentes y Reset
+   ════════════════════════════════════════════════════════ */
+
+:root {
+  /* Paleta institucional Campeche */
+  --clr-primary: #7B1D2E;
+  --clr-primary-dk: #4E0F1B;
+  --clr-primary-lt: #A63248;
+  --clr-gold: #C4973A;
+  --clr-gold-lt: #E2B95A;
+  --clr-bg: #0F0608;
+  --clr-surface: #1A0B0F;
+  --clr-surface2: #251018;
+  --clr-border: rgba(196, 151, 58, .18);
+  --clr-border-lt: rgba(196, 151, 58, .32);
+  --clr-text: #F5EDE0;
+  --clr-text-muted: #9E8070;
+  --clr-text-faint: #5A3F35;
+
+  /* Módulos */
+  --mod-ambiental: #2E7D32;
+  --mod-sociedad: #6A1B9A;
+  --mod-infra: #01579B;
+  --mod-aptitud: #C4973A;
+
+  /* Tipografía */
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-body: 'DM Sans', system-ui, sans-serif;
+  --font-mono: 'DM Mono', 'Fira Mono', monospace;
+
+  /* Layout */
+  --sidebar-w: 300px;
+  --sidebar-w-col: 58px;
+  --topbar-h: 56px;
+  --panel-right-w: 340px;
+  --radius: 6px;
+  --radius-lg: 12px;
+  --shadow: 0 4px 24px rgba(0, 0, 0, .55);
+  --transition: .22s cubic-bezier(.4, 0, .2, 1);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--clr-bg);
+  color: var(--clr-text);
+  font-size: 13.5px;
+  line-height: 1.5;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
+}
+
+input,
+select {
+  font-family: inherit;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* ════════════════════════════════════════════════
+   SCROLLBAR GLOBAL
+   ════════════════════════════════════════════════ */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--clr-primary) transparent;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--clr-primary);
+  border-radius: 3px;
+}

@@ -1,0 +1,96 @@
+/* ════════════════════════════════════════════════
+   Simbologia.css - Estilos para el panel de leyendas
+   ════════════════════════════════════════════════ */
+
+.legend-container {
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  animation: fadeIn 0.4s ease;
+}
+
+.legend-block {
+  background: rgba(255, 255, 255, 0.02);
+  border-bottom: 1px solid var(--clr-border);
+  padding: 1.5rem;
+  transition: background 0.3s ease;
+}
+
+.legend-block:hover {
+  border-color: var(--clr-border-lt);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.legend-block__header {
+  margin-bottom: 1rem;
+  border-bottom: 1px solid var(--clr-border);
+  padding-bottom: 0.6rem;
+}
+
+.legend-block__title {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--clr-gold);
+}
+
+.legend-block__subtitle {
+  font-size: 0.75rem;
+  color: var(--clr-text-faint);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.legend-items {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 0.9rem;
+  color: var(--clr-text-muted);
+}
+
+.legend-color {
+  width: 24px;
+  height: 14px;
+  border-radius: 3px;
+  flex-shrink: 0;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.legend-label {
+  flex-grow: 1;
+}
+
+.legend-source {
+  margin-top: 1.2rem;
+  padding-top: 0.8rem;
+  border-top: 1px dashed var(--clr-border);
+  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--clr-text-faint);
+}
+
+.legend-source a {
+  color: var(--clr-gold);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.legend-source a:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+
+.legend-source i {
+  font-size: 0.9rem;
+}

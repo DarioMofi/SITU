@@ -1,0 +1,6 @@
+{
+  "files.exclude": {
+    "04_CAMP/": true,
+    "**/*.pptx": true
+  }
+}
