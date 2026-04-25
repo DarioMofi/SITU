@@ -1,0 +1,14 @@
+{
+"type": "FeatureCollection",
+"name": "Subestaciones",
+"xy_coordinate_resolution": 1e-07,
+"features": [
+{ "type": "Feature", "properties": { "id": "inegi_sube_ell_p_2000.694", "gid": 694, "condicion": "EN OPERACION", "carta": "E15B55" }, "geometry": { "type": "Point", "coordinates": [ -91.4889936, 18.7936399 ] } },
+{ "type": "Feature", "properties": { "id": "inegi_sube_ell_p_2000.715", "gid": 715, "condicion": "EN OPERACION", "carta": "E15B64" }, "geometry": { "type": "Point", "coordinates": [ -91.823727, 18.6350288 ] } },
+{ "type": "Feature", "properties": { "id": "inegi_sube_ell_p_2000.716", "gid": 716, "condicion": "EN OPERACION", "carta": "E15B64" }, "geometry": { "type": "Point", "coordinates": [ -91.7958589, 18.6578411 ] } },
+{ "type": "Feature", "properties": { "id": "inegi_sube_ell_p_2000.718", "gid": 718, "condicion": "EN OPERACION", "carta": "E15B37" }, "geometry": { "type": "Point", "coordinates": [ -90.7216389, 19.3650718 ] } },
+{ "type": "Feature", "properties": { "id": "inegi_sube_ell_p_2000.737", "gid": 737, "condicion": "EN OPERACION", "carta": "E15B27" }, "geometry": { "type": "Point", "coordinates": [ -90.6850476, 19.6229359 ] } },
+{ "type": "Feature", "properties": { "id": "inegi_sube_ell_p_2000.752", "gid": 752, "condicion": "EN OPERACION", "carta": "E15B67" }, "geometry": { "type": "Point", "coordinates": [ -90.9559083, 18.7485829 ] } },
+{ "type": "Feature", "properties": { "id": "inegi_sube_ell_p_2000.768", "gid": 768, "condicion": "EN OPERACION", "carta": "E16A21" }, "geometry": { "type": "Point", "coordinates": [ -89.8405037, 19.741137 ] } }
+]
+}

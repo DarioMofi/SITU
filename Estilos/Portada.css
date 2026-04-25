@@ -1,0 +1,161 @@
+/* ════════════════════════════════════════════════
+   PORTADA: VERSIÓN BASE RESTAURADA (FIDELIDAD 100%)
+   ════════════════════════════════════════════════ */
+
+.intro-screen {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 9999;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end; /* Alineado a la derecha original */
+    padding-right: 8%;
+    background: #ffffff;
+    transition: opacity 0.8s ease, visibility 0.8s ease;
+}
+
+.intro-bg-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg,
+        #7B1D2E,
+        #C4973A,
+        #4E0F1B,
+        #E2B95A,
+        #A63248);
+    background-size: 300% 300%;
+    animation: introBgScroll 12s ease infinite alternate;
+    opacity: 0.85; /* Opacidad al 85% */
+    z-index: 0;
+}
+
+@keyframes introBgScroll {
+    0% { background-position: 0% 0%; }
+    50% { background-position: 100% 100%; }
+    100% { background-position: 0% 0%; }
+}
+
+#intro-map-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+    pointer-events: none; /* Dejar pasar clicks al fondo, pero los hijos pueden reactivarlo */
+}
+
+#intro-map-svg {
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.municipality-boundary {
+    fill: #fdfdfd;
+    stroke: #666666;
+    stroke-width: 0.5px;
+    pointer-events: all;
+    transition: stroke 0.3s ease, stroke-width 0.3s ease;
+}
+
+.state-boundary {
+    fill: none;
+    stroke: #222121;
+    stroke-width: 2px;
+}
+
+/* ── CONTENIDO UI ── */
+.intro-content {
+    position: relative;
+    z-index: 10;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    padding: 60px;
+    border-radius: 4px;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    max-width: 600px;
+    width: 90%;
+    text-align: left;
+    box-shadow: 0 40px 100px rgba(0, 0, 0, 0.08);
+}
+
+.intro-logo {
+    max-width: 220px;
+    margin-bottom: 40px;
+    display: block;
+}
+
+.intro-text p {
+    font-size: 15px;
+    line-height: 1.9;
+    margin-bottom: 50px;
+    text-align: justify;
+    color: #444446;
+    font-weight: 300;
+}
+
+.intro-developed-by {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: #888;
+    margin-bottom: 12px;
+    font-family: var(--font-mono);
+}
+
+/* ── BOTONES ── */
+.btn-comenzar-custom {
+    font-size: 13px;
+    padding: 18px 50px;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    background: #1a1a1c;
+    color: #ffffff !important;
+    border: none;
+    transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+    cursor: pointer;
+    box-shadow: none;
+    width: 100%;
+}
+
+.btn-comenzar-custom:hover {
+    background: #811212; /* Rojo institucional al hacer hover */
+    transform: translateX(10px);
+}
+
+.intro-portfolios {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 35px;
+    flex-wrap: wrap;
+}
+
+.btn-portfolio {
+    background: #1a1a1c; /* Botones negros originales */
+    border: 1px solid #1a1a1c;
+    color: #ffffff;
+    padding: 10px 18px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    transition: all 0.4s ease;
+}
+
+.btn-portfolio:hover {
+    background: #C4973A; /* Dorado al hacer hover */
+    border-color: #C4973A;
+    transform: translateY(-3px);
+}

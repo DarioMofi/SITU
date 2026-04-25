@@ -7,7 +7,7 @@
   /* Paleta institucional Campeche */
   --clr-primary: #7B1D2E;
   --clr-primary-dk: #4E0F1B;
-  --clr-primary-lt: #A63248;
+  --clr-primary-lt: #811212;
   --clr-gold: #C4973A;
   --clr-gold-lt: #E2B95A;
   --clr-bg: #0F0608;
@@ -77,6 +77,16 @@ select {
 
 .hidden {
   display: none !important;
+}
+
+.meta-link {
+  color: var(--clr-gold);
+  text-decoration: none;
+  word-break: break-all;
+}
+
+.meta-link:hover {
+  text-decoration: underline;
 }
 
 /* ════════════════════════════════════════════════

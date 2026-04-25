@@ -94,3 +94,33 @@
 .legend-source i {
   font-size: 0.9rem;
 }
+
+/* ── LEYENDAS DE GRADIENTE (TEMPERATURA) ── */
+.legend-gradient-container {
+  display: flex;
+  gap: 12px;
+  align-items: stretch;
+  height: 120px;
+  margin-top: 5px;
+  padding-left: 5px;
+}
+
+.legend-gradient-bar {
+  width: 22px;
+  border-radius: 2px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.legend-gradient-labels {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--clr-text-muted);
+  padding: 2px 0;
+}
+
+.legend-gradient-label {
+  line-height: 1;
+}

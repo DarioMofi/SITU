@@ -5,8 +5,8 @@
   position: fixed;
   inset: 0 0 auto 0;
   height: var(--topbar-h);
-  background: rgba(78, 15, 27, 0.5);
-  backdrop-filter: blur(10px);
+  background: rgba(87, 12, 12, 0.5);
+  backdrop-filter: blur(11px);
   -webkit-backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--clr-border-lt);
   display: flex;
@@ -144,7 +144,7 @@
   top: 15px;
   width: 26px;
   height: 44px;
-  background: #FF4C4C;
+  background: #751010;
   /* Rojo Institucional */
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 0 4px 4px 0;
@@ -411,8 +411,7 @@
   flex-direction: column;
   transition: width var(--transition), border var(--transition);
   z-index: 1000;
-  overflow: hidden;
-  /* Cambiado a hidden para evitar scrollbars durante la transición */
+  overflow: visible; /* Permitir que los pop-ups sobresalgan hacia la izquierda */
   color: #333333;
 }
 
@@ -681,6 +680,16 @@
   opacity: .7;
 }
 
+.btn-download-format.active {
+  border-color: var(--clr-gold);
+  background: rgba(196, 151, 58, 0.05);
+  color: var(--clr-text);
+}
+
+.btn-download-format.active i {
+  opacity: 1;
+}
+
 .download-scope {
   display: flex;
   flex-direction: column;
@@ -865,66 +874,75 @@
 .dual-slider-container {
   position: relative;
   width: 100%;
-  height: 25px;
+  height: 35px; /* Más espacio para evitar recortes */
+  display: flex;
+  align-items: center;
 }
 
 .dual-slider {
   position: absolute;
-  top: 0;
-  left: 0;
   width: 100%;
-  pointer-events: none;
+  background: none;
+  pointer-events: none; /* Importante: el input no bloquea lo que hay detrás */
   -webkit-appearance: none;
-  background: transparent;
-  outline: none;
-  z-index: 2;
+  appearance: none;
+  margin: 0;
+  z-index: 10;
 }
 
-.dual-slider.slider-bottom::-webkit-slider-runnable-track {
-  width: 100%;
-  height: 4px;
-  background: var(--clr-border);
-  border-radius: 2px;
-  pointer-events: none;
-  margin-top: 6px;
-}
-
-.dual-slider.slider-top::-webkit-slider-runnable-track {
-  width: 100%;
-  height: 4px;
-  background: transparent;
-  pointer-events: none;
-  margin-top: 6px;
-}
-
+/* Pulgares (Thumbs) - Aquí sí habilitamos eventos */
 .dual-slider::-webkit-slider-thumb {
-  pointer-events: auto;
-  -webkit-appearance: none;
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  cursor: pointer;
-  margin-top: -6px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
-  position: relative;
-  transition: transform 0.1s;
+  pointer-events: auto !important;
+  -webkit-appearance: none !important;
+  appearance: none !important;
+  border-radius: 50% !important;
+  border: 2px solid #ffffff !important;
+  cursor: pointer !important;
+  box-shadow: 0 0 5px rgba(0,0,0,0.4) !important;
+  position: relative !important;
 }
 
-.dual-slider::-webkit-slider-thumb:hover {
-  transform: scale(1.15);
+/* Círculo FINAL (2020) */
+#slider-final::-webkit-slider-thumb {
+  width: 18px !important;
+  height: 18px !important;
+  background: #333333 !important;
+  margin-top: -7px !important; /* Centrado sobre track de 4px */
+  z-index: 20 !important;
 }
 
-.dual-slider.slider-bottom::-webkit-slider-thumb {
-  background: #B0B0B0;
-  border: 2px solid #fff;
-  z-index: 3;
+/* Círculo BASE (1980) */
+#slider-base::-webkit-slider-thumb {
+  width: 12px !important;
+  height: 12px !important;
+  background: #B0B0B0 !important;
+  margin-top: -4px !important; /* Centrado sobre track de 4px */
+  z-index: 30 !important;
 }
 
-.dual-slider.slider-top::-webkit-slider-thumb {
-  background: #757575;
-  border: 2px solid #fff;
-  z-index: 4;
+/* Tracks */
+.dual-slider::-webkit-slider-runnable-track {
+  background: transparent;
+  height: 4px;
 }
+
+/* Solo el slider de abajo muestra la barra gris */
+#slider-final::-webkit-slider-runnable-track {
+  background: #e0e0e0;
+  border-radius: 2px;
+}
+
+/* Repetir para Firefox */
+.dual-slider::-moz-range-thumb {
+  pointer-events: auto !important;
+  border-radius: 50% !important;
+  border: 2px solid #fff !important;
+  cursor: pointer !important;
+}
+#slider-final::-moz-range-thumb { width: 18px; height: 18px; background: #333; }
+#slider-base::-moz-range-thumb { width: 12px; height: 12px; background: #B0B0; }
+.dual-slider::-moz-range-track { background: transparent; height: 4px; }
+#slider-final::-moz-range-track { background: #e0e0e0; }
 
 .slider-ticks {
   position: relative;

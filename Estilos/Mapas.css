@@ -15,6 +15,10 @@
   z-index: 1;
 }
 
+.layer-multiply {
+  mix-blend-mode: multiply;
+}
+
 .map-controls {
   position: absolute;
   right: 16px;
@@ -67,11 +71,64 @@ body.panel-right-open .map-controls {
   gap: 8px;
   align-items: center;
   z-index: 500;
+  transition: left var(--transition); /* Transición suave igual que el sidebar */
+}
+
+/* Sincronización con el Sidebar Izquierdo */
+#sidebar:not(.collapsed) ~ .map-area .map-statusbar {
+  left: var(--sidebar-w);
+}
+
+.scale-selector-container {
+  padding: 18px 16px;
+  background: #fbfbfb;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.scale-selector {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.scale-selector label {
+  color: var(--clr-primary);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.scale-selector select {
+  width: 100%;
+  background: #ffffff;
+  color: #333333;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 6px;
+  padding: 8px 10px;
+  font-family: var(--font-body);
+  font-size: 12.5px;
+  outline: none;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.scale-selector select:hover {
+  border-color: var(--clr-primary);
+  background: #fff;
+}
+
+.scale-selector select:focus {
+  border-color: var(--clr-primary);
+  box-shadow: 0 0 0 3px rgba(123, 29, 46, 0.1);
 }
 
 .active-layers-pill {
   position: absolute;
-  top: 14px;
+  bottom: 35px;
   right: 14px;
   background: var(--clr-primary-dk);
   border: 1px solid var(--clr-border-lt);
@@ -85,6 +142,11 @@ body.panel-right-open .map-controls {
   z-index: 500;
   box-shadow: var(--shadow);
   animation: fadeIn .3s ease;
+  transition: right var(--transition);
+}
+
+body.panel-right-open .active-layers-pill {
+  right: calc(var(--panel-right-w) + 14px);
 }
 
 /* Leaflet overrides */

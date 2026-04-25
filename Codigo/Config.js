@@ -13,7 +13,9 @@ const AppState = {
   currentChart: null,
   selectedFeature: null,
   basemapIndex: 0,
-  stateBoundary: null   // Almacenará el GeoJSON de Lim_Est
+  stateBoundary: null,   // Almacenará el GeoJSON de Lim_Est
+  analysisScale: 'estatal', // 'estatal' (municipal polygons) o 'municipal' (manzana polygons)
+  selectedDownloadFormat: 'geojson'
 };
 
 /* ── CONFIGURACIÓN DE INTERFAZ ── */

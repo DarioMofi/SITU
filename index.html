@@ -30,6 +30,7 @@
   <link rel="stylesheet" href="Estilos/Animaciones.css" />
   <link rel="stylesheet" href="Estilos/Simbologia.css" />
   <link rel="stylesheet" href="Estilos/Clipping.css" />
+  <link rel="stylesheet" href="Estilos/Portada.css" />
 </head>
 
 <body>
@@ -38,7 +39,12 @@
        PANTALLA DE INTRODUCCIÓN
        ─────────────────────────────────────────────── -->
   <div id="intro-screen" class="intro-screen">
-    <!-- El fondo ahora es limpio y minimalista según solicitud -->
+    <!-- Canvas de fondo animado -->
+    <canvas id="intro-bg-canvas" class="intro-bg-canvas"></canvas>
+    
+    <!-- Contenedor para el mapa de Campeche -->
+    <div id="intro-map-container"></div>
+    
     <div class="intro-content transparent-bg intro-content--right">
       <a href="https://campeche.gob.mx/" target="_blank" class="intro-logo-link">
         <img src="Assets/LOGO-CAMPECHE.png" alt="Gobierno de Campeche Logo" class="intro-logo" />
@@ -52,6 +58,7 @@
           movilidad y gestión de riesgos, transformando el dato técnico en decisiones de política pública, permitiendo
           identificar patrones territoriales y priorizar intervenciones con base en evidencia.</p>
       </div>
+      <p class="intro-developed-by">Desarrollado por:</p>
       <div class="intro-portfolios">
         <a href="https://portafoliodario.vercel.app/" target="_blank" class="btn-portfolio">Dario Molina Figueroa</a>
         <a href="https://manuelemilian0.github.io/perfil_profesional/" target="_blank" class="btn-portfolio">Manuel Emiliano Moreno Pérez</a>
@@ -62,6 +69,7 @@
       </button>
     </div>
   </div>
+
 
   <!-- ═══════════════════════════════════════════════
        BARRA SUPERIOR
@@ -101,6 +109,17 @@
 
       <!-- Contenido de cada módulo -->
       <div class="module-panels accordion-style">
+        <div class="scale-selector-container">
+          <div class="scale-selector">
+            <label for="analysis-scale-select" title="Selecciona la escala de análisis geográfico">
+              <i class="fa-solid fa-layer-group"></i> Nivel de Análisis:
+            </label>
+            <select id="analysis-scale-select">
+              <option value="estatal">Estatal</option>
+              <option value="municipal">Municipal</option>
+            </select>
+          </div>
+        </div>
 
         <!-- MÓDULO I: Ambiental -->
         <button class="module-tab accordion-tab" data-module="ambiental" title="Monitor Ambiental y Climático">
@@ -118,28 +137,16 @@
             <div class="layer-group__title">Riesgos Hidrometeorológicos</div>
             <label class="layer-item">
               <input type="checkbox" class="layer-toggle" data-layer="inundacion" data-module="ambiental" />
-              <span class="layer-swatch" style="background:#1565C0"></span>
+              <span class="layer-swatch" style="background:#062b55ff"></span>
               <span class="layer-name">Zonas de Inundación</span>
               <button class="layer-info-btn" data-layer="inundacion"><i class="fa-solid fa-circle-info"></i></button>
-            </label>
-            <label class="layer-item">
-              <input type="checkbox" class="layer-toggle" data-layer="deslizamiento" data-module="ambiental" />
-              <span class="layer-swatch" style="background:#BF360C"></span>
-              <span class="layer-name">Deslizamientos</span>
-              <button class="layer-info-btn" data-layer="deslizamiento"><i class="fa-solid fa-circle-info"></i></button>
-            </label>
-            <label class="layer-item">
-              <input type="checkbox" class="layer-toggle" data-layer="sequia" data-module="ambiental" />
-              <span class="layer-swatch" style="background:#F57F17"></span>
-              <span class="layer-name">Índice de Sequía</span>
-              <button class="layer-info-btn" data-layer="sequia"><i class="fa-solid fa-circle-info"></i></button>
             </label>
           </div>
           <div class="layer-group">
             <div class="layer-group__title">Recursos Naturales</div>
             <label class="layer-item">
               <input type="checkbox" class="layer-toggle" data-layer="anp" data-module="ambiental" />
-              <span class="layer-swatch" style="background:#2E7D32"></span>
+              <span class="layer-swatch" style="background:#216e24ff"></span>
               <span class="layer-name">Áreas Naturales Protegidas</span>
               <button class="layer-info-btn" data-layer="anp"><i class="fa-solid fa-circle-info"></i></button>
             </label>
@@ -156,16 +163,11 @@
               <span class="layer-name">Cuerpos de Agua</span>
               <button class="layer-info-btn" data-layer="cuerpos_agua"><i class="fa-solid fa-circle-info"></i></button>
             </label>
-          </div>
-          <div class="layer-group">
-            <div class="layer-group__title">Vulnerabilidad Compuesta</div>
             <label class="layer-item">
-              <input type="checkbox" class="layer-toggle" data-layer="vulnerabilidad_ambiental"
-                data-module="ambiental" />
-              <span class="layer-swatch" style="background:#AD1457"></span>
-              <span class="layer-name">Índice Vulnerabilidad Ambiental</span>
-              <button class="layer-info-btn" data-layer="vulnerabilidad_ambiental"><i
-                  class="fa-solid fa-circle-info"></i></button>
+              <input type="checkbox" class="layer-toggle" data-layer="red_hidrica" data-module="ambiental" />
+              <span class="layer-swatch" style="background:#0288d1"></span>
+              <span class="layer-name">Red Hídrica</span>
+              <button class="layer-info-btn" data-layer="red_hidrica"><i class="fa-solid fa-circle-info"></i></button>
             </label>
           </div>
           <div class="layer-group">
@@ -247,23 +249,7 @@
               <button class="layer-info-btn" data-layer="pobreza"><i class="fa-solid fa-circle-info"></i></button>
             </label>
           </div>
-          <div class="layer-group">
-            <div class="layer-group__title">Género y Cuidados</div>
-            <label class="layer-item">
-              <input type="checkbox" class="layer-toggle" data-layer="jefatura_femenina" data-module="sociedad" />
-              <span class="layer-swatch" style="background:#6A1B9A"></span>
-              <span class="layer-name">Jefatura de Hogar Femenina</span>
-              <button class="layer-info-btn" data-layer="jefatura_femenina"><i
-                  class="fa-solid fa-circle-info"></i></button>
-            </label>
-            <label class="layer-item">
-              <input type="checkbox" class="layer-toggle" data-layer="equipamiento_cuidados" data-module="sociedad" />
-              <span class="layer-swatch" style="background:#00695C"></span>
-              <span class="layer-name">Equipamiento de Cuidados</span>
-              <button class="layer-info-btn" data-layer="equipamiento_cuidados"><i
-                  class="fa-solid fa-circle-info"></i></button>
-            </label>
-          </div>
+
         </div>
 
         <!-- MÓDULO III: Infraestructura -->
@@ -287,43 +273,28 @@
               <button class="layer-info-btn" data-layer="red_vial"><i class="fa-solid fa-circle-info"></i></button>
             </label>
             <label class="layer-item">
-              <input type="checkbox" class="layer-toggle" data-layer="transporte_publico"
-                data-module="infraestructura" />
-              <span class="layer-swatch" style="background:#0D47A1"></span>
-              <span class="layer-name">Rutas de Transporte Público</span>
-              <button class="layer-info-btn" data-layer="transporte_publico"><i
-                  class="fa-solid fa-circle-info"></i></button>
+              <input type="checkbox" class="layer-toggle" data-layer="vias_ferreas" data-module="infraestructura" />
+              <span class="layer-swatch" style="background:#006d2cff"></span>
+              <span class="layer-name">Vías Férreas</span>
+              <button class="layer-info-btn" data-layer="vias_ferreas"><i class="fa-solid fa-circle-info"></i></button>
             </label>
+
             <label class="layer-item">
-              <input type="checkbox" class="layer-toggle" data-layer="accesibilidad" data-module="infraestructura" />
-              <span class="layer-swatch" style="background:#E91E63"></span>
-              <span class="layer-name">Índice de Accesibilidad</span>
-              <button class="layer-info-btn" data-layer="accesibilidad"><i class="fa-solid fa-circle-info"></i></button>
+              <input type="checkbox" class="layer-toggle" data-layer="tiempo_traslado" data-module="infraestructura" />
+              <span class="layer-swatch" style="background:#311B92"></span>
+              <span class="layer-name">Tiempo de Traslado a Cabecera</span>
+              <button class="layer-info-btn" data-layer="tiempo_traslado"><i class="fa-solid fa-circle-info"></i></button>
             </label>
+
           </div>
           <div class="layer-group">
             <div class="layer-group__title">Servicios Básicos</div>
             <label class="layer-item">
-              <input type="checkbox" class="layer-toggle" data-layer="cobertura_agua" data-module="infraestructura" />
-              <span class="layer-swatch" style="background:#1565C0"></span>
-              <span class="layer-name">Cobertura de Agua Potable</span>
-              <button class="layer-info-btn" data-layer="cobertura_agua"><i
-                  class="fa-solid fa-circle-info"></i></button>
-            </label>
-            <label class="layer-item">
-              <input type="checkbox" class="layer-toggle" data-layer="cobertura_saneamiento"
+              <input type="checkbox" class="layer-toggle" data-layer="cobertura_electrica"
                 data-module="infraestructura" />
-              <span class="layer-swatch" style="background:#558B2F"></span>
-              <span class="layer-name">Cobertura de Saneamiento</span>
-              <button class="layer-info-btn" data-layer="cobertura_saneamiento"><i
-                  class="fa-solid fa-circle-info"></i></button>
-            </label>
-            <label class="layer-item">
-              <input type="checkbox" class="layer-toggle" data-layer="conectividad_digital"
-                data-module="infraestructura" />
-              <span class="layer-swatch" style="background:#F57F17"></span>
-              <span class="layer-name">Conectividad Digital</span>
-              <button class="layer-info-btn" data-layer="conectividad_digital"><i
+              <span class="layer-swatch" style="background:#FFD600"></span>
+              <span class="layer-name">Cobertura Eléctrica</span>
+              <button class="layer-info-btn" data-layer="cobertura_electrica"><i
                   class="fa-solid fa-circle-info"></i></button>
             </label>
           </div>
@@ -332,7 +303,7 @@
             <label class="layer-item">
               <input type="checkbox" class="layer-toggle" data-layer="equipamiento_salud"
                 data-module="infraestructura" />
-              <span class="layer-swatch" style="background:#C62828"></span>
+              <span class="layer-swatch" style="background:#1573c0ff"></span>
               <span class="layer-name">Equipamiento de Salud</span>
               <button class="layer-info-btn" data-layer="equipamiento_salud"><i
                   class="fa-solid fa-circle-info"></i></button>
@@ -366,54 +337,6 @@
               <span class="layer-swatch" style="background:#33691E"></span>
               <span class="layer-name">Uso de Suelo y Vegetación</span>
               <button class="layer-info-btn" data-layer="uso_suelo"><i class="fa-solid fa-circle-info"></i></button>
-            </label>
-            <label class="layer-item">
-              <input type="checkbox" class="layer-toggle" data-layer="aptitud_urbana" data-module="aptitud" />
-              <span class="layer-swatch" style="background:#BF360C"></span>
-              <span class="layer-name">Aptitud para Desarrollo Urbano</span>
-              <button class="layer-info-btn" data-layer="aptitud_urbana"><i
-                  class="fa-solid fa-circle-info"></i></button>
-            </label>
-            <label class="layer-item">
-              <input type="checkbox" class="layer-toggle" data-layer="aptitud_agricola" data-module="aptitud" />
-              <span class="layer-swatch" style="background:#827717"></span>
-              <span class="layer-name">Aptitud Agrícola</span>
-              <button class="layer-info-btn" data-layer="aptitud_agricola"><i
-                  class="fa-solid fa-circle-info"></i></button>
-            </label>
-            <label class="layer-item">
-              <input type="checkbox" class="layer-toggle" data-layer="restricciones" data-module="aptitud" />
-              <span class="layer-swatch" style="background:#880E4F"></span>
-              <span class="layer-name">Restricciones al Desarrollo</span>
-              <button class="layer-info-btn" data-layer="restricciones"><i class="fa-solid fa-circle-info"></i></button>
-            </label>
-          </div>
-          <div class="layer-group">
-            <div class="layer-group__title">Actividad Económica</div>
-            <label class="layer-item">
-              <input type="checkbox" class="layer-toggle" data-layer="actividad_economica" data-module="aptitud" />
-              <span class="layer-swatch" style="background:#C4973A"></span>
-              <span class="layer-name">Actividad Económica Dominante</span>
-              <button class="layer-info-btn" data-layer="actividad_economica"><i
-                  class="fa-solid fa-circle-info"></i></button>
-            </label>
-            <label class="layer-item">
-              <input type="checkbox" class="layer-toggle" data-layer="zonas_industriales" data-module="aptitud" />
-              <span class="layer-swatch" style="background:#455A64"></span>
-              <span class="layer-name">Zonas Industriales</span>
-              <button class="layer-info-btn" data-layer="zonas_industriales"><i
-                  class="fa-solid fa-circle-info"></i></button>
-            </label>
-          </div>
-          <div class="layer-group">
-            <div class="layer-group__title">Análisis Multicriterio</div>
-            <label class="layer-item">
-              <input type="checkbox" class="layer-toggle" data-layer="indice_aptitud" data-module="aptitud" />
-              <span class="layer-swatch"
-                style="background:#C4973A; outline: 2px solid #fff; outline-offset: 1px"></span>
-              <span class="layer-name">Índice de Aptitud Compuesto</span>
-              <button class="layer-info-btn" data-layer="indice_aptitud"><i
-                  class="fa-solid fa-circle-info"></i></button>
             </label>
           </div>
           <div class="layer-group">
@@ -454,7 +377,10 @@
       </div><!-- /module-panels -->
 
       <!-- Modulo de ayuda flotante -->
-      <div id="pop-modules" class="instruction-pop pop-left">
+      <div id="pop-scale" class="instruction-pop pop-left" style="top: 25px; width: 250px;">
+        El nivel de analisis se puede cambiar en cualquier momento.
+      </div>
+      <div id="pop-modules" class="instruction-pop pop-left" style="top: 100px; width: 280px;">
         ¡Selecciona un módulo para comenzar!
       </div>
 
@@ -473,11 +399,12 @@
     <main class="map-area">
       <div id="map"></div>
 
+      <div id="pop-map-controls" class="instruction-pop pop-right" style="top: 20px; right: 70px; width: 250px;">
+        Pasa el cursor sobre los botones para ver sus funciones
+      </div>
+
       <!-- Controles flotantes sobre el mapa -->
       <div class="map-controls">
-        <div id="pop-map-controls" class="instruction-pop pop-right">
-          Pasa el cursor sobre los botones para ver sus funciones
-        </div>
         <button class="map-ctrl-btn" id="ctrl-zoom-in" title="Acercar"><i class="fa-solid fa-plus"></i></button>
         <button class="map-ctrl-btn" id="ctrl-zoom-out" title="Alejar"><i class="fa-solid fa-minus"></i></button>
         <button class="map-ctrl-btn" id="ctrl-extent" title="Extensión completa"><i
@@ -504,6 +431,10 @@
 
     <!-- ── PANEL DERECHO: Análisis ── -->
     <aside class="panel-right collapsed" id="panel-right">
+      <!-- Pop-up pegado al panel (se mueve con él) -->
+      <div id="pop-analysis" class="instruction-pop pop-right hidden" style="top: 190px; right: calc(100% + 20px); width: 220px;">
+        Consulta aquí la información desglozada.
+      </div>
 
       <div class="panel-right__header">
         <div class="panel-tabs">
@@ -565,7 +496,7 @@
         <h4 class="download-title">Exportar información</h4>
         <p class="download-desc">Descarga las capas activas en el formato de tu preferencia.</p>
         <div class="download-formats">
-          <button class="btn-download-format" data-format="geojson">
+          <button class="btn-download-format active" data-format="geojson">
             <i class="fa-solid fa-code"></i>
             <span>GeoJSON</span>
           </button>
@@ -679,19 +610,15 @@
   <script
     src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/leaflet.markercluster.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
-  
-  <!-- Soporte GeoTIFF -->
-  <script src="https://unpkg.com/georaster"></script>
-  <script src="https://unpkg.com/georaster-layer-for-leaflet/dist/georaster-layer-for-leaflet.min.js"></script>
-
-  <!-- Soporte MBTiles -->
-  <script src="https://unpkg.com/sql.js@0.3.2/js/sql.js"></script>
-  <script src="Codigo/Leaflet.TileLayer.MBTiles.js"></script>
-
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+  <script src="https://unpkg.com/@turf/turf/turf.min.js"></script>
+  <script src="https://unpkg.com/terraformer@1.0.12/terraformer.js"></script>
+  <script src="https://unpkg.com/terraformer-wkt-parser@1.2.1/terraformer-wkt-parser.js"></script>
   <!-- Lógica de la aplicación modularizada -->
   <script src="Codigo/Config.js"></script>
   <script src="Codigo/Layers.js"></script>
   <script src="Codigo/Graficas.js"></script>
+  <script src="Codigo/IntroAnimation.js?v=2"></script>
   <script src="Codigo/UI.js"></script>
 </body>
 
