@@ -222,6 +222,19 @@ function bindEvents() {
       document.querySelectorAll('.module-panel').forEach(p => p.classList.remove('active'));
 
       if (!isActive) {
+        // LÓGICA DE ANÁLISIS MULTICRITERIO: Limpiar capas si el modo está bloqueado
+        if (!AppState.multiCriteriaMode) {
+          const activeIds = Object.keys(AppState.activeLayers);
+          activeIds.forEach(id => {
+            if (LAYER_CONFIG[id].module !== mod) {
+              removeLayer(id);
+              // Desmarcar checkbox en la UI
+              const chk = document.querySelector(`.layer-toggle[data-layer="${id}"]`);
+              if (chk) chk.checked = false;
+            }
+          });
+        }
+
         btn.classList.add('active'); targetPanel.classList.add('active'); AppState.activeModule = mod;
         const exp = document.getElementById('module-explanation');
         if (exp) exp.classList.add('hidden');
@@ -244,6 +257,15 @@ function bindEvents() {
         
         const popAnalysis = document.getElementById('pop-analysis');
         if (popAnalysis) popAnalysis.classList.add('hidden');
+        
+        // Si cerramos el módulo y estamos en modo bloqueado, opcionalmente podríamos limpiar todo
+        if (!AppState.multiCriteriaMode) {
+          Object.keys(AppState.activeLayers).forEach(id => {
+            removeLayer(id);
+            const chk = document.querySelector(`.layer-toggle[data-layer="${id}"]`);
+            if (chk) chk.checked = false;
+          });
+        }
       }
       
       // Ajustar mapa tras la transición lateral
@@ -367,6 +389,37 @@ function bindEvents() {
   document.getElementById('help-modal-close').addEventListener('click', () => hideModal('help-modal'));
   document.querySelectorAll('.modal-overlay').forEach(overlay => { overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.classList.add('hidden'); }); });
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { document.querySelectorAll('.modal-overlay').forEach(m => m.classList.add('hidden')); } });
+
+  // Evento para el botón de Análisis Multicriterio (Candado)
+  const btnMulti = document.getElementById('btn-multi-criteria');
+  if (btnMulti) {
+    btnMulti.addEventListener('click', () => {
+      // Ocultar el pop-up de guía al activar por primera vez
+      const popMulti = document.getElementById('pop-multi-criteria');
+      if (popMulti) popMulti.classList.add('hidden');
+
+      AppState.multiCriteriaMode = !AppState.multiCriteriaMode;
+      btnMulti.classList.toggle('unlocked', AppState.multiCriteriaMode);
+      
+      const icon = AppState.multiCriteriaMode ? 'fa-lock-open' : 'fa-lock';
+      btnMulti.innerHTML = `<i class="fa-solid ${icon}"></i> Análisis Multicriterio`;
+      
+      if (!AppState.multiCriteriaMode && AppState.activeModule) {
+        // Al bloquear, eliminar capas que no pertenezcan al módulo activo
+        Object.keys(AppState.activeLayers).forEach(id => {
+          if (LAYER_CONFIG[id].module !== AppState.activeModule) {
+            removeLayer(id);
+            const chk = document.querySelector(`.layer-toggle[data-layer="${id}"]`);
+            if (chk) chk.checked = false;
+          }
+        });
+      }
+      
+      showToast(AppState.multiCriteriaMode 
+        ? 'Análisis Multicriterio Habilitado: Superposición libre permitida' 
+        : 'Análisis Multicriterio Deshabilitado: Modo de módulo único activo');
+    });
+  }
 }
 
 document.addEventListener('DOMContentLoaded', () => {

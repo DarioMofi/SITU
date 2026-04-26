@@ -352,6 +352,44 @@
   background: var(--clr-surface);
 }
 
+.btn-multi-criteria {
+  width: 100%;
+  padding: 8px 10px;
+  margin-bottom: 12px;
+  background: rgba(0, 0, 0, 0.03);
+  border: 1px dashed var(--clr-border);
+  border-radius: 4px;
+  font-size: 10.5px;
+  color: var(--clr-text-muted);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.btn-multi-criteria i {
+  font-size: 11px;
+  color: var(--clr-text-faint);
+  transition: color 0.3s ease;
+}
+
+.btn-multi-criteria:hover {
+  background: rgba(196, 151, 58, 0.05);
+  border-color: var(--clr-gold);
+  color: var(--clr-text);
+}
+
+.btn-multi-criteria.unlocked {
+  background: rgba(46, 125, 50, 0.05);
+  border: 1px solid rgba(46, 125, 50, 0.3);
+  color: #2E7D32;
+}
+
+.btn-multi-criteria.unlocked i {
+  color: #2E7D32;
+}
+
 .legend-panel__header {
   font-size: 10.5px;
   text-transform: uppercase;

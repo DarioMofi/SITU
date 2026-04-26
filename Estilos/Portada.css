@@ -81,25 +81,27 @@
     background: rgba(255, 255, 255, 0.8);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    padding: 60px;
+    padding: 35px 50px;
     border-radius: 4px;
     border: 1px solid rgba(0, 0, 0, 0.05);
     max-width: 600px;
-    width: 90%;
+    width: 95%;
     text-align: left;
     box-shadow: 0 40px 100px rgba(0, 0, 0, 0.08);
+    max-height: 85vh;
+    overflow-y: auto;
 }
 
 .intro-logo {
-    max-width: 220px;
-    margin-bottom: 40px;
+    max-width: 200px;
+    margin-bottom: 25px;
     display: block;
 }
 
 .intro-text p {
     font-size: 15px;
-    line-height: 1.9;
-    margin-bottom: 50px;
+    line-height: 1.6;
+    margin-bottom: 30px;
     text-align: justify;
     color: #444446;
     font-weight: 300;
@@ -137,7 +139,7 @@
 .intro-portfolios {
     display: flex;
     gap: 12px;
-    margin-bottom: 35px;
+    margin-bottom: 25px;
     flex-wrap: wrap;
 }
 
@@ -158,4 +160,50 @@
     background: #C4973A; /* Dorado al hacer hover */
     border-color: #C4973A;
     transform: translateY(-3px);
+}
+
+/* ── RESPONSIVIDAD ── */
+@media (max-width: 1024px) {
+    .intro-screen {
+        padding-right: 4%;
+    }
+    .intro-content {
+        padding: 40px;
+        max-width: 500px;
+    }
+}
+
+@media (max-width: 768px) {
+    .intro-screen {
+        justify-content: center;
+        padding-right: 0;
+        padding: 15px;
+    }
+    .intro-content {
+        padding: 20px 25px;
+        width: 100%;
+        max-width: 100%;
+        margin: 10px;
+    }
+    .intro-logo {
+        max-width: 140px;
+        margin-bottom: 15px;
+    }
+    .intro-text p {
+        font-size: 12.5px;
+        line-height: 1.5;
+        margin-bottom: 20px;
+    }
+    .btn-comenzar-custom {
+        padding: 14px 25px;
+        font-size: 10px;
+    }
+    .intro-portfolios {
+        gap: 8px;
+        margin-bottom: 15px;
+    }
+    .btn-portfolio {
+        padding: 6px 10px;
+        font-size: 8.5px;
+    }
 }

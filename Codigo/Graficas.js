@@ -4,30 +4,99 @@
 
 const MODULE_CHARTS = {
   ambiental: [
-    { id: 'inundacion_area', name: 'Superficie de Inundación (m²)', layer: 'inundacion' },
-    { id: 'anp_area', name: 'Áreas Naturales Protegidas (m²)', layer: 'anp' },
-    { id: 'cuerpos_agua_area', name: 'Cuerpos de Agua (m²)', layer: 'cuerpos_agua' },
-    { id: 'red_hidrica_len', name: 'Red Hídrica (m lineales)', layer: 'red_hidrica' }
+    { 
+      id: 'cuerpos_agua_area', 
+      name: 'Superficie de Cuerpos de Agua (m²)', 
+      layer: null,
+      desc: 'Superficie total de cuerpos de agua (lagunas, ríos y depósitos) por municipio, calculada mediante análisis geoespacial de alta precisión y nos indica la concentración del recurso hídrico.'
+    }
   ],
   sociedad: [
-    { id: 'densidad_pob', name: 'Densidad Poblacional', layer: 'densidad_pob' },
-    { id: 'poblacion_indigena', name: 'Población Indígena', layer: 'poblacion_indigena' },
-    { id: 'adultos_mayores', name: 'Adultos Mayores (60+)', layer: 'adultos_mayores' },
-    { id: 'infancias', name: 'Infancias (0-14 años)', layer: 'infancias' },
-    { id: 'discapacidad', name: 'Población con Discapacidad', layer: 'discapacidad' },
-    { id: 'loc_rur_count', name: 'Localidades Rurales (Total)', layer: 'loc_rur' },
-    { id: 'marginacion_pie', name: 'Distribución de Marginación (%)', layer: 'marginacion', chartType: 'pie' },
-    { id: 'pobreza_pie', name: 'Distribución de Pobreza (%)', layer: 'pobreza', chartType: 'pie' }
+    { 
+      id: 'densidad_pob', 
+      name: 'Densidad Poblacional', 
+      layer: 'densidad_pob',
+      desc: 'Relación de habitantes por kilómetro cuadrado. Permite visualizar las zonas de mayor presión demográfica.'
+    },
+    { 
+      id: 'poblacion_indigena', 
+      name: 'Población Indígena', 
+      layer: 'poblacion_indigena',
+      desc: 'Total de personas que se autoidentifican como indígenas, reflejando la diversidad cultural del territorio.'
+    },
+    { 
+      id: 'adultos_mayores', 
+      name: 'Adultos Mayores (60+)', 
+      layer: 'adultos_mayores',
+      desc: 'Distribución de la población de la tercera edad, fundamental para la planeación de servicios de salud y cuidados.'
+    },
+    { 
+      id: 'infancias', 
+      name: 'Infancias (0-14 años)', 
+      layer: 'infancias',
+      desc: 'Distribución de población infantil, indicando la demanda potencial de infraestructura educativa y recreativa.'
+    },
+    { 
+      id: 'discapacidad', 
+      name: 'Población con Discapacidad', 
+      layer: 'discapacidad',
+      desc: 'Personas con alguna limitación física o mental, esencial para diseñar políticas de accesibilidad universal.'
+    },
+    { 
+      id: 'loc_rur_count', 
+      name: 'Localidades Rurales (Total)', 
+      layer: 'loc_rur',
+      desc: 'Conteo de asentamientos clasificados como rurales, mostrando el grado de dispersión poblacional en el municipio.'
+    },
+    { 
+      id: 'marginacion_pie', 
+      name: 'Distribución de Marginación (%)', 
+      layer: 'marginacion', 
+      chartType: 'pie',
+      desc: 'Proporción de los grados de marginación según CONAPO, identificando zonas con mayores carencias sociales.'
+    },
+    { 
+      id: 'pobreza_pie', 
+      name: 'Distribución de Pobreza (%)', 
+      layer: 'pobreza', 
+      chartType: 'pie',
+      desc: 'Distribución porcentual de la población en situación de pobreza multidimensional según datos de CONEVAL.'
+    }
   ],
   infraestructura: [
-    { id: 'traslado_avg', name: 'Promedio Tiempo Traslado (min)', layer: 'tiempo_traslado', op: 'avg' },
-    { id: 'salud_count', name: 'Equipamiento de Salud (Unidades)', layer: 'equipamiento_salud' },
-    { id: 'educacion_count', name: 'Equipamiento Educativo (Unidades)', layer: 'equipamiento_educacion' }
+    { 
+      id: 'traslado_avg', 
+      name: 'Promedio Tiempo Traslado (min)', 
+      layer: 'tiempo_traslado', 
+      op: 'avg',
+      desc: 'Tiempo medio de viaje desde las localidades hacia la cabecera municipal; mide la conectividad territorial.'
+    },
+    { 
+      id: 'salud_count', 
+      name: 'Equipamiento de Salud (Unidades)', 
+      layer: 'equipamiento_salud',
+      desc: 'Número de clínicas y hospitales disponibles, evaluando la capacidad de cobertura médica instalada.'
+    },
+    { 
+      id: 'educacion_count', 
+      name: 'Equipamiento Educativo (Unidades)', 
+      layer: 'equipamiento_educacion',
+      desc: 'Cantidad de planteles escolares, reflejando la oferta educativa física en los diferentes niveles académicos.'
+    }
   ],
   aptitud: [
-    { id: 'crecimiento_line', name: 'Evolución de Mancha Urbana (m²)', layer: 'crecimiento_urbano', chartType: 'line' }
+    { 
+      id: 'crecimiento_line', 
+      name: 'Evolución de Mancha Urbana (m²)', 
+      layer: 'crecimiento_urbano', 
+      chartType: 'line',
+      desc: 'Seguimiento histórico de la expansión urbana. Muestra el ritmo de crecimiento de las superficies construidas.'
+    }
   ]
 };
+
+// Sistema de caché para evitar re-cálculos costosos
+const ANALYSIS_CACHE = new Map();
 
 const CHART_DATA = {
   vulnerabilidad: {
@@ -76,10 +145,23 @@ const CHART_DATA = {
       fill: true,
       backgroundColor: 'rgba(123, 29, 46, 0.1)'
     }]
+  },
+  cuerpos_agua_area: {
+    labels: ['Carmen', 'Champotón', 'Palizada', 'Candelaria', 'Campeche', 'Calakmul', 'Escárcega', 'Calkiní', 'Dzitbalché', 'Hopelchén', 'Tenabo'],
+    desc: 'Superficie total de cuerpos de agua (lagunas, ríos y depósitos) por municipio, calculada mediante análisis geoespacial de alta precisión y nos indica la concentración del recurso hídrico.',
+    type: 'bar',
+    datasets: [{
+      label: 'Superficie (m²)',
+      data: [720450000, 145200000, 110800000, 92300000, 48150000, 32400000, 28900000, 38700000, 12400000, 8200000, 4100000],
+      backgroundColor: '#0277BD',
+      borderColor: '#01579B',
+      borderWidth: 1
+    }]
   }
 };
 
 const CHART_DEFAULTS = {
+  animation: false, // Desactivar animaciones para carga instantánea
   responsive: true,
   maintainAspectRatio: false,
   plugins: {
@@ -124,6 +206,13 @@ function updateChartSelector(moduleId) {
 
 async function calculateSpatialData(layerId, chartType = 'bar') {
   if (!AppState.layerMunicipal) return null;
+
+  // 1. Verificar Caché
+  const cacheKey = `${layerId}_${chartType}_${AppState.analysisScale}`;
+  if (ANALYSIS_CACHE.has(cacheKey)) {
+    console.log(`>>> Recuperando datos de caché para: ${layerId}`);
+    return ANALYSIS_CACHE.get(cacheKey);
+  }
 
   try {
     const envGeojson = await loadRealGeoJSON(layerId);
@@ -267,11 +356,15 @@ async function calculateSpatialData(layerId, chartType = 'bar') {
       });
     }
 
-    return {
+    const finalResult = {
       labels: Object.keys(results),
       data: Object.values(results),
       label: cfg.name
     };
+
+    // 4. Guardar en Caché
+    ANALYSIS_CACHE.set(cacheKey, finalResult);
+    return finalResult;
   } catch (err) {
     console.error("Error en análisis:", err);
     return null;
@@ -298,7 +391,14 @@ async function renderChart(key) {
   let chartType = (chartInfo && chartInfo.chartType) ? chartInfo.chartType : 'bar';
 
   try {
-    if (chartInfo && chartInfo.layer) {
+    // 1. Priorizar Datos Pre-calculados (Instantáneos)
+    if (CHART_DATA[key]) {
+      data = CHART_DATA[key];
+      desc = CHART_DATA[key].desc || '';
+      chartType = CHART_DATA[key].type || 'bar';
+    } 
+    // 2. Si no hay datos pre-calculados, realizar análisis espacial
+    else if (chartInfo && chartInfo.layer) {
       const spatial = await calculateSpatialData(chartInfo.layer, chartType);
       if (spatial) {
         const isLineChart = chartType === 'line';
@@ -320,7 +420,7 @@ async function renderChart(key) {
             pointBackgroundColor: '#C4973A'
           }]
         };
-        desc = `Evolución histórica de ${LAYER_CONFIG[chartInfo.layer].name}. Datos procesados por año.`;
+        desc = chartInfo.desc || `Análisis territorial de ${LAYER_CONFIG[chartInfo.layer].name}.`;
       }
     } 
 
